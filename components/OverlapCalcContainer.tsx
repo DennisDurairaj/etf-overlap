@@ -19,7 +19,7 @@ const processCSV = async (data: Files) => {
     formData.append(key, value);
     formData.append(key, value.name);
   }
-  const response = await fetch("/api/processor", {
+  const response = await fetch("/api/overlap", {
     method: "POST",
     body: formData,
   });
@@ -44,15 +44,14 @@ const OverlapCalcContainer = (props: Props) => {
   };
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.files);
-    if (e.target.files !== null) {
+    if (e.target.files !== null && e.target.files.length > 0) {
       files.onChange(e);
     }
   };
 
   return (
     <>
-      <VStack as="form" spacing={8} borderColor="gray.200">
+      <VStack marginBottom="8" as="form" spacing={8} borderColor="gray.200">
         <input
           type="file"
           multiple
@@ -70,7 +69,7 @@ const OverlapCalcContainer = (props: Props) => {
           onClick={() => buttonRef.current?.click()}
           colorScheme="blue"
         >
-          Upload files
+          Select files
         </Button>
         <HStack spacing={2}>
           {watchFiles &&
